@@ -1,5 +1,8 @@
 # Telegram Bot API
 python-telegram-bot==20.7
+python-telegram-bot==20.7
+httpx
+certifi
 
 # Async support
 asyncio
