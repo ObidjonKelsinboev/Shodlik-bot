@@ -1,0 +1,113 @@
+{
+  "rooms": [
+    {
+      "id": 1,
+      "name": "Lyuks",
+      "quality": "Lux",
+      "price": "500000",
+      "desc": "Добро пожаловать в наш уютный люкс! Здесь у вас есть комфортабельная кровать для двоих, а также возможность установить дополнительную кровать . В номере вас ждёт телевизор и кондиционер, а площадь составляет 30 квадратных метров, что обеспечивает достаточно пространства для комфортного отдыха.",
+      "img": "AgACAgIAAxkBAAIJ52iHJEOmvD9MEEFPvQWt4Za8tUBcAAKa9DEbQ8JASHhFn1_nf77NAQADAgADeAADNgQ",
+      "capacity": 4
+    },
+    {
+      "id": 3,
+      "name": "Standart",
+      "quality": "Standart",
+      "price": "300000",
+      "desc": "У нас есть номер для двух человек площадью 16 квадратных метров, оборудованный душем, кондиционером и телевизором. Вы сможете наслаждаться шикарным видом на город, что сделает ваше пребывание незабываемым Приезжайте и оцените комфорт и уют нашего номера!",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 3
+    },
+    {
+      "id": 6,
+      "name": "Standart",
+      "quality": "Standart",
+      "price": "300000",
+      "desc": "У нас есть номер для двух человек площадью 16 квадратных метров, оборудованный душем, кондиционером и телевизором. Вы сможете наслаждаться шикарным видом на город, что сделает ваше пребывание незабываемым Приезжайте и оцените комфорт и уют нашего номера!",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 2
+    },
+    {
+      "id": 7,
+      "name": "Lyuks",
+      "quality": "Lyuks",
+      "price": "500000",
+      "desc": "hali tayormas",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 2
+    },
+    {
+      "id": 8,
+      "name": "Lyuks",
+      "quality": "Lyuks",
+      "price": "500000",
+      "desc": "ohirida",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 4
+    },
+    {
+      "id": 9,
+      "name": "Polulyuks",
+      "quality": "Polulyuks",
+      "price": "400000",
+      "desc": "kegn",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 8
+    },
+    {
+      "id": 10,
+      "name": "Polulyuks",
+      "quality": "Polulyuks",
+      "price": "400000",
+      "desc": "ohirida",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 10
+    },
+    {
+      "id": 11,
+      "name": "Polulyuks",
+      "quality": "Polulyuks",
+      "price": "400000",
+      "desc": "dddddd",
+      "img": "AgACAgIAAxkBAAIKe2iHJ7bV1yLQU9OJ-SPQfoIerDXCAALM9DEbQ8JASK_ee_bH2XDZAQADAgADeAADNgQ",
+      "capacity": 12
+    },
+    {
+      "id": 14,
+      "name": "standrt",
+      "quality": "Standart",
+      "price": "300000",
+      "desc": "ddd",
+      "img": "AgACAgIAAxkBAAINFmiHSUeA04WnOUyiHG835O0oF2D0AAJ19jEbQ8JASJHB4oRB25jqAQADAgADeAADNgQ",
+      "capacity": 4
+    }
+  ],
+  "about": {
+    "uz": "",
+    "ru": ""
+  },
+  "location": "",
+  "restaurant": "",
+  "bookings": [
+    {
+      "user_id": 1143475155,
+      "username": "kelsinboev077",
+      "room_id": 14,
+      "quality": "Standart",
+      "phone": "998978006686",
+      "name": "qj",
+      "people": 2,
+      "from": "2025-07-31",
+      "to": "2025-07-31"
+    }
+  ],
+  "lang": {
+    "1671888527": "uz",
+    "1143475155": "ru"
+  },
+  "qualities": [
+    "Lyuks",
+    "Polulyuks",
+    "Standart"
+  ]
+}
