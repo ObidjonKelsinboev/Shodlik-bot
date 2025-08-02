@@ -1,0 +1,32 @@
+# Telegram Bot API
+python-telegram-bot==20.7
+
+# Async support
+asyncio
+
+# Date and time handling
+python-dateutil==2.8.2
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Logging
+loguru==0.7.2
+
+# Data validation
+pydantic==2.5.0
+
+# HTTP requests (if needed for external APIs)
+requests==2.31.0
+
+# JSON handling (built-in but listed for clarity)
+# json - built-in module
+
+# Regular expressions (built-in but listed for clarity)
+# re - built-in module
+
+# Random number generation (built-in but listed for clarity)
+# random - built-in module
+
+# DateTime handling (built-in but listed for clarity)
+# datetime - built-in module
