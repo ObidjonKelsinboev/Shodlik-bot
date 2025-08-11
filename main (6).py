@@ -9,7 +9,8 @@ from telegram.ext import (
 from telegram.constants import ChatAction
 import re
 import random
-ADMIN_ID =  1143475155  # Admin user_id
+
+ADMIN_ID = 1143475155  # Admin user_id
 TOKEN = '8025141379:AAFqQQYicKKn7tt3d1Loj2AoiTnE94jESvI'
 
 def load_data():
@@ -423,40 +424,40 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await smart_reply(update, 'Rasm URL yoki rasm yuboring:')
         context.user_data['state'] = 'addroom_img'
         return
-    if context.user_data.get('state') == 'addroom_img' and text:
-        url = text
-        data = load_data()
-        room_id = max([r['id'] for r in data['rooms']], default=0) + 1
-        data['rooms'].append({
-            'id': room_id,
-            'name': context.user_data['addroom_name'],
-            'quality': context.user_data['addroom_quality'],
-            'price': context.user_data['addroom_price'],
-            'desc': context.user_data['addroom_desc'],
-            'img': url,
-            'capacity': context.user_data.get('addroom_capacity', 7)
-        })
-        save_data(data)
-        await smart_reply(update, 'Xona qo‘shildi!')
-        context.user_data.clear()
-        return
-    if context.user_data.get('state') == 'addroom_img' and update.message and update.message.photo:
-        file_id = update.message.photo[-1].file_id
-        data = load_data()
-        room_id = max([r['id'] for r in data['rooms']], default=0) + 1
-        data['rooms'].append({
-            'id': room_id,
-            'name': context.user_data['addroom_name'],
-            'quality': context.user_data['addroom_quality'],
-            'price': context.user_data['addroom_price'],
-            'desc': context.user_data['addroom_desc'],
-            'img': file_id,
-            'capacity': context.user_data.get('addroom_capacity', 7)
-        })
-        save_data(data)
-        await smart_reply(update, 'Xona qo‘shildi!')
-        context.user_data.clear()
-        return
+    if context.user_data.get('state') == 'addroom_img':
+        # Agar admin rasm yuborsa (photo)
+        if update.message and update.message.photo:
+            file_id = update.message.photo[-1].file_id
+            imgs = context.user_data.get('addroom_imgs', [])
+            imgs.append(file_id)
+            context.user_data['addroom_imgs'] = imgs
+            await smart_reply(update, 'Yana rasm yuboring yoki "stop" deb yozing.')
+            return
+        # Agar admin 'stop' deb yozsa
+        if update.message and update.message.text and update.message.text.strip().lower() == 'stop':
+            data = load_data()
+            room_id = max([r['id'] for r in data['rooms']], default=0) + 1
+            data['rooms'].append({
+                'id': room_id,
+                'name': context.user_data['addroom_name'],
+                'quality': context.user_data['addroom_quality'],
+                'price': context.user_data['addroom_price'],
+                'desc': context.user_data['addroom_desc'],
+                'imgs': context.user_data.get('addroom_imgs', []),
+                'capacity': context.user_data.get('addroom_capacity', 7)
+            })
+            save_data(data)
+            await smart_reply(update, 'Xona va rasmlar qo‘shildi!')
+            context.user_data.clear()
+            return
+        # Agar admin URL yuborsa (text, lekin 'stop' emas)
+        if update.message and update.message.text:
+            url = update.message.text.strip()
+            imgs = context.user_data.get('addroom_imgs', [])
+            imgs.append(url)
+            context.user_data['addroom_imgs'] = imgs
+            await smart_reply(update, 'Yana rasm yuboring yoki "stop" deb yozing.')
+            return
     # USER XONALAR
     if text_clean in [clean_text('Xonalar'), clean_text('Номера')]:
         await smart_reply(
@@ -976,24 +977,49 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         room_id = int(query.data.split('_')[-1])
         room = next((r for r in data['rooms'] if r['id'] == room_id), None)
         if room:
-            caption = (
-                f"🏨 <b>{room['name']}</b>\n"
-                f"🏷️ Sifat: <b>{room['quality']}</b>\n"
-                f"💵 Narx: <b>{room['price']} So'm</b>\n"
-                f"📝 {room['desc']}"
-            )
-            await context.bot.send_photo(
-                chat_id=user_id,
-                photo=room['img'],
-                caption=caption,
-                parse_mode='HTML',
-                reply_markup=user_room_detail_menu(room_id, lang)
-            )
+            imgs = room.get('imgs') or ([room.get('img')] if room.get('img') else [])
+            if imgs and len(imgs) > 1:
+                media = []
+                for i, img in enumerate(imgs):
+                    if i == 0:
+                        media.append(InputMediaPhoto(
+                            img,
+                            caption=(
+                                f"🏨 <b>{room['name']}</b>\n"
+                                f"🏷️ Sifat: <b>{room['quality']}</b>\n"
+                                f"💵 Narx: <b>{room['price']} So'm</b>\n"
+                                f"📝 {room['desc']}"
+                            ),
+                            parse_mode='HTML'
+                        ))
+                    else:
+                        media.append(InputMediaPhoto(img))
+                await context.bot.send_media_group(
+                    chat_id=user_id,
+                    media=media
+                )
+                await context.bot.send_message(
+                    chat_id=user_id,
+                    text='Xona tafsilotlari',
+                    reply_markup=user_room_detail_menu(room_id, lang)
+                )
+            elif imgs:
+                await context.bot.send_photo(
+                    chat_id=user_id,
+                    photo=imgs[0],
+                    caption=(
+                        f"🏨 <b>{room['name']}</b>\n"
+                        f"🏷️ Sifat: <b>{room['quality']}</b>\n"
+                        f"💵 Narx: <b>{room['price']} So'm</b>\n"
+                        f"📝 {room['desc']}"
+                    ),
+                    parse_mode='HTML',
+                    reply_markup=user_room_detail_menu(room_id, lang)
+                )
+            else:
+                await smart_reply(update, 'Rasm mavjud emas.')
             context.user_data['room_id'] = room_id
             context.user_data['state'] = 'choose_room_detail'
-            return
-        else:
-            await smart_reply(update, 'Xona topilmadi.' if lang == 'uz' else 'Номер не найден.')
             return
     elif query.data.startswith('room_'):
         room_id = int(query.data.split('_')[-1])
